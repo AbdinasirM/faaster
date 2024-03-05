@@ -21,7 +21,7 @@ while running:
     screen.fill("White")
     
     # RENDER YOUR GAME HERE
-
+    
     # flip() the display to put your work on screen
     pygame.draw.circle(screen, "Purple", pos, 40) 
     if pygame.key.get_pressed()[pygame.K_w]: 
