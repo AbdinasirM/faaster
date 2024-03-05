@@ -1,14 +1,19 @@
 # Example file showing a basic pygame "game loop"
-import pygame 
-
+import pygame;
+from platforms import generatePlatforms
 # pygame setup
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+
+screenWidth  = 1280
+screenHeight = 720
+
+screen = pygame.display.set_mode((screenWidth, screenHeight))
 clock = pygame.time.Clock()
 running = True
 
 
 pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+rectangle_platforms = generatePlatforms()  # Call the function to generate platforms
 
 while running:
     # poll for events
@@ -24,6 +29,10 @@ while running:
     
     # flip() the display to put your work on screen
     pygame.draw.circle(screen, "Purple", pos, 40) 
+    
+    for rectangle_platform in rectangle_platforms:
+            pygame.draw.rect(screen, (255, 0, 0), rectangle_platform)  # Use a tuple for the color
+
     if pygame.key.get_pressed()[pygame.K_w]: 
        #pygame.draw.circle(screen, "Purple", pos + (20,10), 40) 
         pos.y += -10
