@@ -2,9 +2,14 @@
 import pygame 
 import Movements
 import time as t
+import platforms
 # pygame setup
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+
+screenWidth  = 1280
+screenHeight = 720
+
+screen = pygame.display.set_mode((screenWidth, screenHeight))
 clock = pygame.time.Clock()
 running = True
 
@@ -12,6 +17,7 @@ isJumping = False
 jumpCount = 10
 m = 1
 pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+rectangle_platforms = generatePlatforms()  # Call the function to generate platforms
 
 while running:
    #print(pos)
