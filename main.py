@@ -16,8 +16,8 @@ running = True
 isJumping = False
 jumpCount = 10
 m = 1
-pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-rectangle_platforms = generatePlatforms()  # Call the function to generate platforms
+pos = pygame.Vector2(10, screen.get_height()-25)
+rectangle_platforms = platforms.generatePlatforms()  # Call the function to generate platforms
 
 while running:
    #print(pos)
@@ -31,9 +31,11 @@ while running:
     screen.fill("White")
     
     # RENDER YOUR GAME HERE
-    
     # flip() the display to put your work on screen
     pygame.draw.circle(screen, "Purple", pos, 40) 
+
+    for rectangle_platform in rectangle_platforms:
+            pygame.draw.rect(screen, (255, 0, 0), rectangle_platform)  # Use a tuple for the color
 
     Movements.BasicMove(pygame=pygame,pos=pos,t=t,isJumping=isJumping,jumpCount=jumpCount,m=m)
 
