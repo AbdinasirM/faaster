@@ -2,6 +2,7 @@
 import pygame 
 import Movements
 import time as t
+import platforms
 # pygame setup
 pygame.init()
 
