@@ -1,5 +1,6 @@
 # Example file showing a basic pygame "game loop"
 import pygame;
+import platforms
 from platforms import generatePlatforms
 # pygame setup
 pygame.init()
