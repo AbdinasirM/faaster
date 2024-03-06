@@ -1,7 +1,7 @@
 # Example file showing a basic pygame "game loop"
-import pygame;
-import platforms
-from platforms import generatePlatforms
+import pygame 
+import Movements
+import time as t
 # pygame setup
 pygame.init()
 
@@ -12,11 +12,14 @@ screen = pygame.display.set_mode((screenWidth, screenHeight))
 clock = pygame.time.Clock()
 running = True
 
-
+isJumping = False
+jumpCount = 10
+m = 1
 pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 rectangle_platforms = generatePlatforms()  # Call the function to generate platforms
 
 while running:
+   #print(pos)
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
@@ -30,13 +33,34 @@ while running:
     
     # flip() the display to put your work on screen
     pygame.draw.circle(screen, "Purple", pos, 40) 
-    
-    for rectangle_platform in rectangle_platforms:
-            pygame.draw.rect(screen, (255, 0, 0), rectangle_platform)  # Use a tuple for the color
 
-    if pygame.key.get_pressed()[pygame.K_w]: 
-       #pygame.draw.circle(screen, "Purple", pos + (20,10), 40) 
-        pos.y += -10
+    Movements.BasicMove(pygame=pygame,pos=pos,t=t,isJumping=isJumping,jumpCount=jumpCount,m=m)
+
+    keys = pygame.key.get_pressed()
+    if not(isJumping):
+
+         if keys[pygame.K_w]:
+             isJumping = True
+    if isJumping: 
+        if jumpCount >= -10:
+            print(jumpCount)
+
+            F =(1 / 2)*m*(jumpCount**2)
+
+            pos.y -= F
+            
+            jumpCount = jumpCount - 1
+
+            if jumpCount < 0: 
+                m = -1
+            
+            if jumpCount == -11: 
+
+                isJumping = False
+                jumpCount = 10
+                m = 1
+
+    
     pygame.display.flip()
     
     clock.tick(60)  # limits FPS to 60
