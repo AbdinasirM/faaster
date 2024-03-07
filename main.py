@@ -14,8 +14,14 @@ clock = pygame.time.Clock()
 running = True
 
 isJumping = False
+dash = False
+updraft = False
+
 jumpCount = 10
+dashCount = 5
+updraftCount = 15
 m = 1
+n = 1
 pos = pygame.Vector2(10, screen.get_height()-25)
 rectangle_platforms = platforms.generatePlatforms()  # Call the function to generate platforms
 
@@ -42,8 +48,10 @@ while running:
     keys = pygame.key.get_pressed()
     if not(isJumping):
 
-         if keys[pygame.K_w]:
+         if keys[pygame.K_SPACE]:
              isJumping = True
+    
+   
     if isJumping: 
         if jumpCount >= -10:
             print(jumpCount)
@@ -62,7 +70,40 @@ while running:
                 isJumping = False
                 jumpCount = 10
                 m = 1
+    if not(dash): 
+        if keys[pygame.K_e]:
+            dash = True 
+    if not(updraft):
+        if keys[pygame.K_q]:
+            updraft = True
+    if dash: 
+        if keys[pygame.K_d]:
+            pos.x += 20
+        if keys[pygame.K_a]:
+            pos.x -= 20
 
+        dash = False
+    if updraft:
+          if updraftCount >= -20:
+            print(updraftCount)
+
+            L =(1 / 2)*n*(updraftCount**2)
+
+            pos.y -= L
+            
+            updraftCount -= 1
+
+            if updraftCount< 0: 
+                n = -1
+            
+            if updraftCount== -16: 
+
+                updraft = False
+                updraftCount = 15
+                n = 1
+
+         
+    
     
     pygame.display.flip()
     
